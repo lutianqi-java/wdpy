@@ -34,9 +34,9 @@ def echo_once(request):
                 command = 'bash /opt/test.sh'#这里是要执行的命令或者脚本
 
                 # 远程连接服务器
-                hostname = '192.168.0.162'
+                hostname = '192.168.88.131'
                 username = 'root'
-                password = 'root'
+                password = '199462@'
 
                 ssh = paramiko.SSHClient()
                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -47,8 +47,8 @@ def echo_once(request):
                 # 循环发送消息给前端页面
                 while True:
                     nextline = stdout.readline().strip()  # 读取脚本输出内容
-                    # print(nextline.strip())
-                    request.websocket.send(nextline) # 发送消息到客户端
+                    print(nextline.strip())
+                    request.websocket.send(nextline.strip().encode()) # 发送消息到客户端
                     # 判断消息为空时,退出循环
                     if not nextline:
                         break
